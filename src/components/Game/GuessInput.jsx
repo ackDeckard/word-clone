@@ -1,11 +1,18 @@
 import React from "react";
 
-function GuessInput() {
+function GuessInput({ guesses, setGuesses }) {
   const [label, setLabel] = React.useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(label);
+    const newGuess = {
+      id: Math.random(),
+      word: label,
+    };
+
+    console.log(newGuess);
+    const nextItem = [...guesses, newGuess];
+    setGuesses(nextItem);
     setLabel("");
   }
 
@@ -15,6 +22,9 @@ function GuessInput() {
       <input
         id="guess-input"
         type="text"
+        required
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
         value={label}
         maxLength="5"
         minLength="5"
